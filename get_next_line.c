@@ -6,7 +6,7 @@
 /*   By: hacharka <hacharka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 11:21:58 by hacharka          #+#    #+#             */
-/*   Updated: 2024/12/14 20:11:44 by hacharka         ###   ########.fr       */
+/*   Updated: 2024/12/16 17:46:25 by hacharka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,24 +47,23 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (sub);
 }
 
-char	*ft_strchr(char *s, int c)
+int		end_of_line(char *s, int c)
 {
 	int	i;
 
 	i = 0;
 	if(!s)
-		return (NULL);
+		return (0);
 	while (s[i] != '\0')
 	{
 		if (s[i] == (char)c)
 		{
-			return ((char *)&s[i]);
+			break ;
 		}
 		i++;
 	}
-	// if ((char)c == '\0')
-	// 	return ((char *)&s[i]);
-	return (NULL);
+	
+	return (i);
 }
 char	*ft_strdup(const char *s1)
 {
@@ -88,39 +87,38 @@ char	*ft_strdup(const char *s1)
 	return (copy);
 }
 
+char	*ft_strchr(const char *s, int c)
+{
+	int	i;
+	if(!s)
+	return (NULL);
+	i = 0;
+	while (s[i] != '\0')
+	{
+		if (s[i] == (char)c)
+		{
+			return ((char *)&s[i]);
+		}
+		i++;
+	}
+	return (NULL);
+}
+
 char	*read_from_file(int fd, int buffer_size)
 {
-	char	*buffer[buffer_size + 1];
+	char	*buffer;
 	int		b_read;
 
+	buffer = malloc(BUFFER_SIZE + 1);
+	if (buffer == NULL)
+		return (NULL);
+	b_read  = 0;
 	b_read = read(fd, buffer, buffer_size);
 	buffer[b_read] = '\0';
-	
 	if (b_read <= 0)
 		return NULL;
 	else
 		return (buffer);
-}
-
-char	*get_next_line(int fd)
-{
-	static char	*holder;
-	static char	*remaining_content;
-	char	*new_read= NULL;
-	int		newline_index;
-
-	while (!ft_strchr(holder, '\n'))
-	{
-		new_read = read_from_file(fd, BUFFER_SIZE);
-
-		if (new_read == NULL || new_read[0] == '\0')
-			break ;
-		
-		holder = ft_strjoin(holder, new_read);
-	}
-	
-	
-	
 }
 
 char	*ft_strjoin(char *s1, char *s2)
@@ -146,10 +144,51 @@ char	*ft_strjoin(char *s1, char *s2)
 			join[i++] = (char)s2[j++];
 		}
 		join[i] = '\0';
-		free(s1);
-		s1 = NULL;
+		// free(s1);
+		// s1 = NULL;
+		// free(s2);
+		// s2 = NULL;
 		return (join);
 	}
+}
+
+char	*get_next_line(int fd)
+{
+	char	*holder = NULL;
+	static char	*remaining_content;
+	char	*line = NULL;
+	char	*new_read= NULL;
+	int		newline_index = 0;
+	int i = 0;
+	newline_index = 0;
+	while (!ft_strchr(holder, '\n'))
+	{
+		i++;
+		printf("%d\n ",i);
+		new_read = read_from_file(fd, BUFFER_SIZE);
+		
+		if (new_read == NULL || new_read[0] == '\0')
+			break ;
+		holder = ft_strjoin(remaining_content, new_read);
+	}
+	// printf("holder ---> {%s}",holder);
+	// printf("holder : %s\n", holder);
+	if (newline_index == 0)
+		newline_index = end_of_line(holder, '\n');
+	// printf("index--> {%d}\n", newline_index);
+	line = ft_substr(holder, 0, newline_index);
+		// printf("\nline** ----> {%s}\n", line);
+		// if(i == 3)
+		// printf("%s",holder);
+	remaining_content = ft_substr(holder, newline_index + 1, ft_strlen(holder));
+		printf("\nremainin ** ----> {%s}\n", remaining_content);
+	// printf("RRRholder : %s\n", remaining_content);
+	if (holder != NULL)
+		free(holder);
+		// printf("\nline** ----> {%s}\n", line);
+	// holder = ft_strjoin(holder, remaining_content);
+	// printf("LIne :%s\n", line);
+	return (line);
 }
 
 
@@ -165,8 +204,10 @@ int main()
 	if (fd < 0)
 		return 1;
 	rs = get_next_line(fd);
-	printf("the content of holder : %s", rs);
+	printf("the content of holder : {%s}", rs);
 	rs = get_next_line(fd);
-	printf("the content of holder : %s", rs);
+	printf(" second call the content of holder : %s", rs);
+	rs = get_next_line(fd);
+	printf(" second call the content of holder : %s", rs);
 	return 0;
 }
