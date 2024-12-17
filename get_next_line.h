@@ -6,7 +6,7 @@
 /*   By: hacharka <hacharka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 11:22:03 by hacharka          #+#    #+#             */
-/*   Updated: 2024/12/16 13:42:42 by hacharka         ###   ########.fr       */
+/*   Updated: 2024/12/17 14:06:34 by hacharka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,13 @@
 # include <unistd.h>
 
 #ifndef BUFFER_SIZE
-#define BUFFER_SIZE 11
+#define BUFFER_SIZE 1
 #endif
 
 char	*get_next_line(int fd);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_strjoin(char *s1, char *s2);
+size_t		ft_strlen(const char *s);
+char	*ft_strchr(const char *s, int c);
+char	*ft_strdup(const char *s1);
 #endif
