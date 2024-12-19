@@ -6,7 +6,7 @@
 /*   By: hacharka <hacharka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 11:21:51 by hacharka          #+#    #+#             */
-/*   Updated: 2024/12/17 13:45:46 by hacharka         ###   ########.fr       */
+/*   Updated: 2024/12/19 18:06:02 by hacharka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	size_t	i;
 	size_t	j;
 	char	*join;
-	
-	if (!s1 && !s2)
-		return (NULL);
+
     if (!s1)
 		return (ft_strdup(s2));
     if (!s2)
@@ -87,9 +85,6 @@ char	*ft_strjoin(char *s1, char *s2)
 			join[i++] = (char)s2[j++];
 		join[i] = '\0';
 		free(s1);
-		// s1 = NULL;
-		// free(s2);
-		// s2 = NULL;
 		return (join);
 	}
 }
@@ -98,7 +93,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	char	*sub;
 	size_t	i;
 	size_t	s_len;
-
 	if (!s)
 		return (NULL);
 	s_len = ft_strlen(s);
