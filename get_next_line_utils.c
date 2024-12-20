@@ -6,7 +6,7 @@
 /*   By: hacharka <hacharka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 11:21:51 by hacharka          #+#    #+#             */
-/*   Updated: 2024/12/19 18:06:02 by hacharka         ###   ########.fr       */
+/*   Updated: 2024/12/20 19:11:49 by hacharka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ char	*ft_strdup(const char *s1)
 char	*ft_strchr(const char *s, int c)
 {
 	int	i;
+	
 	if(!s)
 	return (NULL);
 	i = 0;
@@ -85,6 +86,7 @@ char	*ft_strjoin(char *s1, char *s2)
 			join[i++] = (char)s2[j++];
 		join[i] = '\0';
 		free(s1);
+		free(s2);
 		return (join);
 	}
 }
@@ -96,8 +98,8 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	if (!s)
 		return (NULL);
 	s_len = ft_strlen(s);
-	if (start >= s_len)
-		return (ft_strdup(""));
+	// if (start >= s_len)
+	// 	return (ft_strdup(""));
 	if (len > s_len - start)
 		len = s_len - start;
 	sub = (char *)malloc(sizeof(char) * (len + 1));
