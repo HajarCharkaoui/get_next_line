@@ -6,7 +6,7 @@
 /*   By: hacharka <hacharka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 11:21:51 by hacharka          #+#    #+#             */
-/*   Updated: 2024/12/20 19:11:49 by hacharka         ###   ########.fr       */
+/*   Updated: 2024/12/22 21:22:21 by hacharka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,22 +45,22 @@ char	*ft_strdup(const char *s1)
 	return (copy);
 }
 
-char	*ft_strchr(const char *s, int c)
+int	ft_strchr(const char *s, int c)
 {
 	int	i;
 	
 	if(!s)
-	return (NULL);
+	return (0);
 	i = 0;
 	while (s[i] != '\0')
 	{
 		if (s[i] == (char)c)
 		{
-			return ((char *)&s[i]);
+			return (1);
 		}
 		i++;
 	}
-	return (NULL);
+	return (0);
 }
 char	*ft_strjoin(char *s1, char *s2)
 {
@@ -86,7 +86,6 @@ char	*ft_strjoin(char *s1, char *s2)
 			join[i++] = (char)s2[j++];
 		join[i] = '\0';
 		free(s1);
-		free(s2);
 		return (join);
 	}
 }
@@ -98,8 +97,8 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	if (!s)
 		return (NULL);
 	s_len = ft_strlen(s);
-	// if (start >= s_len)
-	// 	return (ft_strdup(""));
+	if (start >= s_len)
+		return (ft_strdup(""));
 	if (len > s_len - start)
 		len = s_len - start;
 	sub = (char *)malloc(sizeof(char) * (len + 1));
