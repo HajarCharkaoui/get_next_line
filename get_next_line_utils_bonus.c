@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hacharka <hacharka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/06 11:21:51 by hacharka          #+#    #+#             */
-/*   Updated: 2024/12/23 22:35:40 by hacharka         ###   ########.fr       */
+/*   Created: 2024/12/23 22:27:58 by hacharka          #+#    #+#             */
+/*   Updated: 2024/12/23 22:30:22 by hacharka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(char *s)
 {
@@ -74,7 +74,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	size_t	j;
 	char	*join;
 
-	if (!s2 && !s1)
+	if (!s2)
 		return (NULL);
 	if (!s1)
 		return (ft_strdup(s2));
