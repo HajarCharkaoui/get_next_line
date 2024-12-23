@@ -6,13 +6,13 @@
 /*   By: hacharka <hacharka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 11:21:51 by hacharka          #+#    #+#             */
-/*   Updated: 2024/12/22 21:22:21 by hacharka         ###   ########.fr       */
+/*   Updated: 2024/12/23 22:11:09 by hacharka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(const char *s)
+size_t	ft_strlen(char *s)
 {
 	size_t	len;
 
@@ -23,7 +23,8 @@ size_t	ft_strlen(const char *s)
 		len++;
 	return (len);
 }
-char	*ft_strdup(const char *s1)
+
+char	*ft_strdup(char *s1)
 {
 	char	*copy;
 	size_t	len;
@@ -45,71 +46,53 @@ char	*ft_strdup(const char *s1)
 	return (copy);
 }
 
-int	ft_strchr(const char *s, int c)
+char	*ft_strchr(char *s, int c)
 {
 	int	i;
-	
-	if(!s)
-	return (0);
+
 	i = 0;
-	while (s[i] != '\0')
+	if (!s)
+		return (0);
+	while (s[i])
 	{
 		if (s[i] == (char)c)
 		{
-			return (1);
+			return ((char *)s + i);
 		}
 		i++;
 	}
+	if (s[i] == (char)c)
+	{
+		return ((char *)s + i);
+	}
 	return (0);
 }
+
 char	*ft_strjoin(char *s1, char *s2)
 {
 	size_t	i;
 	size_t	j;
 	char	*join;
 
-    if (!s1)
+	if (!s2)
+		return (NULL);
+	if (!s1)
 		return (ft_strdup(s2));
-    if (!s2)
-		return (ft_strdup(s1));
 	join = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (join == NULL)
 		return (NULL);
-	else
-	{
-		i = 0;
-		j = 0;
-		while (i < ft_strlen(s1) && s1[i] != '\0')
-			join[i++] = (char)s1[j++];
-		j = 0;
-		while (j < ft_strlen(s2) && s2[j] != '\0')
-			join[i++] = (char)s2[j++];
-		join[i] = '\0';
-		free(s1);
-		return (join);
-	}
-}
-char	*ft_substr(char const *s, unsigned int start, size_t len)
-{
-	char	*sub;
-	size_t	i;
-	size_t	s_len;
-	if (!s)
-		return (NULL);
-	s_len = ft_strlen(s);
-	if (start >= s_len)
-		return (ft_strdup(""));
-	if (len > s_len - start)
-		len = s_len - start;
-	sub = (char *)malloc(sizeof(char) * (len + 1));
-	if (!sub)
-		return (NULL);
 	i = 0;
-	while (i < len && s[start + i] != '\0')
+	j = 0;
+	while (s1[i])
+		join[i++] = s1[j++];
+	j = 0;
+	while (s2[j])
 	{
-		sub[i] = s[start + i];
+		join[i] = s2[j];
 		i++;
+		j++;
 	}
-	sub[i] = '\0';
-	return (sub);
+	join[i] = '\0';
+	free (s1);
+	return (join);
 }
