@@ -110,7 +110,7 @@ char	*get_next_line(int fd)
 // 	int fd = open("hajar.txt", O_RDONLY);
 
 // 	if (fd < 0)
-// 		return 1;
+// 		return (1);
 // 	rs = get_next_line(fd);
 // 	write(1, rs, ft_strlen(rs));
 // 	free(rs);
@@ -137,5 +137,5 @@ char	*get_next_line(int fd)
 // // 	// printf(" 8 call the content of holder : %s\n", rs);
 // // 	// free(rs);
 // 	close(fd);
-// 	return 0;
+// 	return (0);
 // }

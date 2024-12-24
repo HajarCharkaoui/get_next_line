@@ -93,6 +93,6 @@ char	*ft_strjoin(char *s1, char *s2)
 		j++;
 	}
 	join[i] = '\0';
-	free (s1);
+	free(s1);
 	return (join);
 }
